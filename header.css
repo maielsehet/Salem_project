@@ -6,6 +6,7 @@ header {
     top: 0;
     z-index: 100;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: 100px;
 }
 
 .header-content {
@@ -15,11 +16,12 @@ header {
 }
 
 .logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--white);
+   width: 180px;
+   filter: brightness(0) saturate(100%) invert(80%) sepia(20%) 
+   saturate(600%) hue-rotate(10deg) brightness(90%) contrast(90%);
+}
+.logo img{
+    width: 100%;
 }
 
 .logo span {
