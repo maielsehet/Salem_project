@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salem Alta Moda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="footer.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">SALEM <span>ALTA MODA</span></div>
+            <nav>
+                <ul>
+                    <li><a href="Home.html">Home</a></li>
+                    <li><a href="Products.html">Products</a></li>
+                    <li><a href="Offers.html">Offers</a></li>
+                    <li><a href="About.html" class="active">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <i class="fas fa-search search-icon"></i>
+                <i class="fas fa-user user-icon"></i>
+
+            </div>
+        </div>
+    </header>
+    <main class="login-container">
+        <div class="container">
+            <div class="login-box">
+                <div class="login-logo">
+                    <h2>Admin Portal</h2>
+                    <p>Salem Fabrics Management System</p>
+                    <div class="divider"></div>
+                </div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" name="email" required placeholder="Enter admin email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" name="password" required placeholder="Enter password">
+                        </div>
+                    </div>
+                    
+                    <div class="error-message" id="errorMessage">
+                        Invalid admin credentials. Please try again.
+                    </div>
+                    
+                    <button type="submit" class="btn">Sign In</button>
+                </form>
+            </div>
+        </div>
+    </main>
+   
+</body>
+</html>

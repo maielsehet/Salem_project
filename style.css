@@ -1,0 +1,381 @@
+:root {
+    --gold: #C6A972;
+    --gold-light: #D4B989;
+    --gold-dark: #B08D57;
+    --black: #000000;
+    --black-light: #1A1A1A;
+    --white: #FFFFFF;
+    --gray: #8A8A8A;
+    --gray-light: #F5F5F5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--black);
+    background-color: var(--white);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    color: var(--black);
+}
+
+.container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+
+/* Hero Section */
+.about-hero {
+    height: 60vh;
+    background: black;
+    background-size: cover;
+    background-position: center;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.about-hero-content {
+    width: 100%;
+}
+
+.about-hero h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    letter-spacing: 3px;
+    color: var(--white);
+}
+
+.about-hero p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    font-weight: 300;
+    color: var(--white);
+}
+
+.divider {
+    width: 100px;
+    height: 2px;
+    background-color: var(--gold);
+    margin: 2rem auto;
+}
+
+/* About Content */
+.about-content {
+    padding: 5rem 0;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.about-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+.about-text h2:after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background-color: var(--gold);
+}
+
+.about-text p {
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+    line-height: 1.8;
+    text-align: left;
+}
+
+/* Values Section */
+.values-section {
+    background-color: var(--black);
+    color: var(--white);
+    padding: 5rem 0;
+}
+
+.section-title {
+    text-align: center;
+    padding: 0 0 3rem;
+    font-size: 2.5rem;
+    position: relative;
+    color: var(--white);
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 2px;
+    background-color: var(--gold);
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.value-card {
+    text-align: center;
+    padding: 2rem;
+}
+
+.value-icon {
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+}
+
+.value-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--white);
+}
+
+.value-description {
+    color: var(--gray);
+    font-weight: 300;
+}
+
+/* Locations Section */
+.locations-section {
+    padding: 5rem 0;
+}
+
+.locations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.location-card {
+    padding: 2rem;
+    border: 1px solid #eee;
+    transition: all 0.3s;
+}
+
+.location-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.location-name {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--black);
+}
+
+.location-address {
+    color: var(--gray);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.location-contact {
+    margin-top: 1.5rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+    color: var(--black);
+}
+
+.contact-item i {
+    color: var(--gold);
+}
+/*login section*/
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 2rem 0;
+}
+
+.login-box {
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 450px;
+    padding: 3rem;
+    text-align: center;
+    margin: 0 auto;
+}
+.login-logo {
+    margin-bottom: 2rem;
+}
+
+.login-logo h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    color: var(--black);
+    margin-bottom: 0.5rem;
+}
+
+.login-logo p {
+    color: var(--gray);
+    font-size: 1rem;
+}
+
+.divider {
+    width: 80px;
+    height: 2px;
+    background-color: var(--gold);
+    margin: 1.5rem auto 2rem;
+}
+.form-group {
+    margin-bottom: 1.8rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+    color: var(--black);
+    font-size: 0.95rem;
+}
+
+.input-with-icon {
+    position: relative;
+}
+.input-with-icon i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray);
+}
+
+.input-with-icon input {
+    width: 100%;
+    padding: 14px 15px 14px 50px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+.input-with-icon input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(198, 169, 114, 0.2);
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background-color: var(--black);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 1.5rem;
+}
+.btn:hover {
+    background-color: var(--gold);
+    color: var(--black);
+}
+
+.error-message {
+    color: var(--error);
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
+    display: none;
+    text-align: center;
+}
+
+
+
+/* Responsive */
+@media (max-width: 992px) {
+    .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .locations-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    nav ul {
+        gap: 1rem;
+    }
+    
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .social-icons {
+        gap: 1rem;
+    }
+    
+    .social-icons a {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+}
+@media (max-width: 768px) {
+    .login-box {
+        padding: 2.5rem 2rem;
+        margin: 0 1rem;
+    }
+    
+    .login-logo h2 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-box {
+        padding: 2rem 1.5rem;
+    }
+    
+    .login-logo h2 {
+        font-size: 2rem;
+    }
+    
+    .input-with-icon input {
+        padding: 12px 15px 12px 45px;
+
+    }
+}  
