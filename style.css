@@ -111,6 +111,7 @@ h1, h2, h3, h4 {
     background-color: var(--black);
     color: var(--white);
     padding: 5rem 0;
+    margin-bottom: 1rem;
 }
 
 .section-title {

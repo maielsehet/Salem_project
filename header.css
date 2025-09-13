@@ -44,7 +44,7 @@ nav a {
     font-weight: 400;
 }
 
-nav a:hover, nav a.active {
+nav a:hover {
     color: var(--gold);
 }
 
@@ -54,7 +54,7 @@ nav a:hover, nav a.active {
     align-items: center;
 }
 
-.search-icon, .user-icon {
+.search-icon {
     color: var(--white);
     font-size: 1.2rem;
     cursor: pointer;

@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
     const errorMessage = document.getElementById('errorMessage');
     
-    // معالجة تسجيل الدخول
+    
     loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
