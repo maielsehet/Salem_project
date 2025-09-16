@@ -320,6 +320,545 @@ h1, h2, h3, h4 {
 }
 
 
+  /* Products Section */
+  .products-section {
+    padding: 5rem 0;
+  }
+
+.section-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+    position: relative;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    bottom: -0.8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 2px;
+    background-color: var(--gold);
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.product-card {
+    background: var(--white);
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product-img-container {
+    height: 280px;
+    overflow: hidden;
+    position: relative;
+}
+
+.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.product-card:hover .product-img {
+    transform: scale(1.05);
+}
+
+.product-info {
+    padding: 1.5rem;
+}
+
+.product-name {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.product-price {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.current-price {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--black);
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.product-actions {
+    display: flex;
+}
+
+/* Offer-specific styles */
+.offer-card .product-img-container {
+    position: relative;
+}
+
+.offer-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e53935;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+/* Home Page Styles */
+.hero-banner {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('OIP.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 6rem 0;
+    margin-bottom: 4rem;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.hero-text h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+
+.hero-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: #d4af37;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: white;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+.hero-features {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.feature i {
+    color: #d4af37;
+    font-size: 1.2rem;
+}
+
+.feature span {
+    font-size: 0.9rem;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+.section-subtitle{
+    font-weight: bold;
+}
+.featured-products {
+    margin-bottom: 4rem;
+}
+
+.see-more-container {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.see-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.see-more-btn:hover {
+    background: #C6A972;
+    transform: translateY(-2px);
+}
+
+.request-section {
+    background: black;
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.request-content h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.request-content p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.request-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 3rem;
+    background: #d4af37;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+.request-btn:hover {
+    background: #c19b26;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+.request-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #d4af37;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #d4af37;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-bottom: 1rem;
+}
+
+.submit-btn:hover {
+    background: #c19b26;
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-features {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+.action-btn {
+    width: 100%;
+    padding: 0.8rem;
+    text-align: center;
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+    border-radius: 4px;
+}
+
+.action-btn:hover {
+    background: var(--gold);
+    color: var(--black);
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    gap: 0.5rem;
+}
+
+.pagination-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    background: var(--white);
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 4px;
+}
+
+.pagination-btn.active, .pagination-btn:hover {
+    background: var(--black);
+    color: var(--white);
+}
+
+/* Product Details Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.modal-content {
+    background-color: var(--white);
+    margin: 2% auto;
+    padding: 0;
+    width: 90%;
+    max-width: 1000px;
+    border-radius: 8px;
+    position: relative;
+    animation: modalopen 0.5s;
+}
+
+@keyframes modalopen {
+    from {opacity: 0; transform: translateY(-50px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: var(--black);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.product-details {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-details-images {
+    flex: 1;
+    min-width: 300px;
+    max-height: 600px;
+    overflow: hidden;
+    position: relative;
+}
+
+.main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0 1rem 1rem;
+}
+
+.thumbnail {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 4px;
+}
+
+.thumbnail.active {
+    border-color: var(--gold);
+}
+
+.product-details-info {
+    flex: 1;
+    padding: 2rem;
+    min-width: 300px;
+}
+
+.product-details-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+
+.product-details-price {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.product-details-current {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.product-details-original {
+    text-decoration: line-through;
+    color: var(--gray);
+}
+
+.product-details-discount {
+    color: #e53935;
+    font-weight: 600;
+}
+
+.product-details-description {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+.product-details-specs {
+    margin-bottom: 1.5rem;
+}
+
+.specs-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.specs-table tr {
+    border-bottom: 1px solid #eee;
+}
+
+.specs-table td {
+    padding: 0.7rem 0;
+}
+
+.specs-table td:first-child {
+    font-weight: 500;
+    width: 30%;
+}
+
+.product-details-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.details-action-btn {
+    padding: 1rem 1.5rem;
+    text-align: center;
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1rem;
+    border-radius: 4px;
+    flex: 1;
+}
+
+.details-action-btn:hover {
+    background: var(--gold);
+    color: var(--black);
+}
+.product-section{
+    padding: 5rem 0;
+}
+.section-title{
+    color: #000000;
+}
+
 
 /* Responsive */
 @media (max-width: 992px) {
@@ -379,4 +918,24 @@ h1, h2, h3, h4 {
         padding: 12px 15px 12px 45px;
 
     }
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 5% auto;
+    }
+    
+    .product-details-info {
+        padding: 1.5rem;
+    }
+    
+    .product-details-title {
+        font-size: 1.8rem;
+    }
+    
+    .product-details-actions {
+        flex-direction: column;
 }  
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salem Alta Moda - Products</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="footer.css"> 
+    <link rel="icon" type="image/png" href="Pokecut_1757341097439 (1).png">  
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo"><img src="Pokecut_1757341097439 (1).png" alt=""></div>
+            <nav>
+                <ul>
+                    <li><a href="Home.html">Home</a></li>
+                    <li><a href="Products.html">Products</a></li>
+                    <li><a href="Offers.html">Offers</a></li>
+                    <li><a href="About.html">About</a></li>
+                    <li><a href="Contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <i class="fas fa-search search-icon"></i>
+              
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Products Section -->
+    <section class="products-section container">
+        <h2 class="section-title">Our Products</h2>
+        
+        <div class="products-grid" id="productsGrid">
+            <div class="loading">
+                <div class="spinner"></div>
+            </div>
+        </div>
+        
+        <div class="pagination" id="pagination">
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <button class="pagination-btn">Next</button>
+        </div>
+    </section>
+
+    <!-- Product Details Modal -->
+    <div id="productDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeProductDetails()">&times;</span>
+            <div class="product-details">
+                <div class="product-details-images">
+                    <img id="images" src="images" alt="Product Image" class="main-image">
+                    <div class="thumbnail-container" id="thumbnailContainer">
+                    </div>
+                </div>
+                <div class="product-details-info">
+                    <h2 id="detailTitle" class="product-details-title"></h2>
+                    
+                    <div class="product-details-price">
+                        <span id="detailCurrentPrice" class="product-details-current"></span>
+                        <span id="detailOriginalPrice" class="product-details-original"></span>
+                    </div>
+                    
+                    <p id="detailDescription" class="product-details-description"></p>
+                    
+                    <div class="product-details-specs">
+                        <h3>Specifications</h3>
+                        <table class="specs-table">
+                            <tr>
+                                <td>Type</td>
+                                <td id="specType"></td>
+                            </tr>
+                            <tr>
+                                <td>Colors Available</td>
+                                <td id="specColors"></td>
+                            </tr>
+                            <tr>
+                                <td>Branch</td>
+                                <td id="specBranch"></td>
+                            </tr>
+                            <tr>
+                                <td>Location</td>
+                                <td id="specLocation"></td>
+                            </tr>
+                            <tr>
+                                <td>Phone</td>
+                                <td id="specPhone"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="simple-footer">
+        <div class="container">
+            <div class="footer-logo">SALEM <span>FABRICS</span></div>
+            <p class="footer-text">Curating luxury fabrics since 1911. Exquisite textiles for the discerning clientele who appreciate timeless elegance and unparalleled quality.</p>
+            
+            <div class="social-icons">
+                <a href="https://www.instagram.com/salemaltamoda/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/SalemAltaModa1911" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+        
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Salem Fabrics. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
