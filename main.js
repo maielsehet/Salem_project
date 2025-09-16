@@ -697,28 +697,255 @@ document.addEventListener('DOMContentLoaded', function() {
      document.addEventListener('DOMContentLoaded', function() {
          const requestForm = document.getElementById('requestForm');
          if (requestForm) {
-             requestForm.addEventListener('submit', function(e) {
-                 e.preventDefault();
-                 
-                 // Get form data
-                 const formData = new FormData(this);
-                 const requestData = {
-                     name: formData.get('name'),
-                     email: formData.get('email'),
-                     phone: formData.get('phone'),
-                     type: formData.get('type'),
-                     message: formData.get('message')
-                 };
-                 
-                 // Here you would normally send the data to your server
-                 console.log('Request submitted:', requestData);
-                 
-                 // Show success message
-                 alert('Thank you for your request! We will contact you soon.');
+             requestForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
                 
-                // Reset form and close modal
-                this.reset();
-                closeRequestModal();
+                // Get form data
+                const formData = new FormData(this);
+                const requestData = {
+                    name: formData.get('name'),
+                    phone: formData.get('phone'),
+                    note: formData.get('note')
+                };
+                // Build inclusive payload with multiple casings for maximum compatibility
+                const apiPayload = {
+                    Name: requestData.name,
+                    name: requestData.name,
+                    person_name: requestData.name,
+                    personName: requestData.name,
+                    PersonName: requestData.name,
+                    Phone: requestData.phone,
+                    phone: requestData.phone,
+                    person_phone: requestData.phone,
+                    personPhone: requestData.phone,
+                    PersonPhone: requestData.phone,
+                    phone_number: requestData.phone,
+                    phoneNumber: requestData.phone,
+                    Note: requestData.note,
+                    note: requestData.note,
+                    message: requestData.note,
+                    person_note: requestData.note,
+                    notes: requestData.note,
+                    Notes: requestData.note,
+                    Description: requestData.note,
+                    description: requestData.note,
+                    Request: requestData.note,
+                    request: requestData.note
+                };
+                
+                // Disable submit button while sending
+                const submitBtn = this.querySelector('.submit-btn');
+                const originalBtnText = submitBtn ? submitBtn.textContent : '';
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Sending...';
+                }
+
+                // Basic client validation
+                const phoneDigits = (requestData.phone || '').replace(/\D/g, '');
+                const errors = [];
+                if (!requestData.name || requestData.name.trim().length < 2) {
+                    errors.push('Name must be at least 2 characters.');
+                }
+                if (!requestData.phone || phoneDigits.length < 10) {
+                    errors.push('Phone must have at least 10 digits.');
+                }
+                if (!requestData.note || requestData.note.trim().length < 3) {
+                    errors.push('Note must be at least 3 characters.');
+                }
+                if (errors.length) {
+                    alert('Please correct the following:\n- ' + errors.join('\n- '));
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalBtnText || 'Send Request';
+                    }
+                    return;
+                }
+
+                try {
+                    // 1) Try multipart/form-data with most probable keys first
+                    const fdPrimary = new FormData();
+                    fdPrimary.append('person_name', requestData.name);
+                    fdPrimary.append('person_phone', requestData.phone);
+                    fdPrimary.append('note', requestData.note);
+                    console.log('Sending special-request as FormData(person_*)');
+                    let response = await fetch('https://f9244004d8c8.ngrok-free.app/api/special-request', {
+                        method: 'POST',
+                        mode: 'cors',
+                        // No explicit headers: let the browser set multipart/form-data boundary
+                        body: fdPrimary
+                    });
+
+                    // 2) If server rejects, try JSON with same exact keys
+                    if (!response.ok && (response.status === 400 || response.status === 415 || response.status === 422)) {
+                        const jsonPayload = {
+                            person_name: requestData.name,
+                            person_phone: requestData.phone,
+                            note: requestData.note
+                        };
+                        console.log('Retrying as JSON(person_*)', jsonPayload);
+                        response = await fetch('https://f9244004d8c8.ngrok-free.app/api/special-request', {
+                            method: 'POST',
+                            mode: 'cors',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                                'ngrok-skip-browser-warning': 'true'
+                            },
+                            body: JSON.stringify(jsonPayload)
+                        });
+                    }
+
+                    // 3) If still failing, try x-www-form-urlencoded with same keys
+                    if (!response.ok && (response.status === 400 || response.status === 415 || response.status === 422)) {
+                        const formEncoded = new URLSearchParams();
+                        formEncoded.append('person_name', requestData.name);
+                        formEncoded.append('person_phone', requestData.phone);
+                        formEncoded.append('note', requestData.note);
+                        console.log('Retrying as x-www-form-urlencoded(person_*)', formEncoded.toString());
+                        response = await fetch('https://f9244004d8c8.ngrok-free.app/api/special-request', {
+                            method: 'POST',
+                            mode: 'cors',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                'ngrok-skip-browser-warning': 'true'
+                            },
+                            body: formEncoded.toString()
+                        });
+                    }
+
+                    // 4) As a last resort, send parameters in the URL query string
+                    if (!response.ok && (response.status === 400 || response.status === 415 || response.status === 422)) {
+                        const qs = new URLSearchParams({
+                            person_name: requestData.name,
+                            person_phone: requestData.phone,
+                            note: requestData.note
+                        }).toString();
+                        const urlWithQS = `https://f9244004d8c8.ngrok-free.app/api/special-request?${qs}`;
+                        console.log('Retrying as POST with querystring(person_*)', urlWithQS);
+                        response = await fetch(urlWithQS, {
+                            method: 'POST',
+                            mode: 'cors',
+                            headers: {
+                                'Accept': 'application/json',
+                                'ngrok-skip-browser-warning': 'true'
+                            }
+                        });
+                    }
+
+                    // 5) Try nested keys (person[name], person[phone]) as FormData
+                    if (!response.ok && (response.status === 400 || response.status === 415 || response.status === 422)) {
+                        const fdNested = new FormData();
+                        fdNested.append('person[name]', requestData.name);
+                        fdNested.append('person[phone]', requestData.phone);
+                        fdNested.append('note', requestData.note);
+                        console.log('Retrying as FormData(person[name], person[phone])');
+                        response = await fetch('https://f9244004d8c8.ngrok-free.app/api/special-request', {
+                            method: 'POST',
+                            mode: 'cors',
+                            body: fdNested
+                        });
+                    }
+
+                    // 6) Try nested JSON: { person: { name, phone }, note }
+                    if (!response.ok && (response.status === 400 || response.status === 415 || response.status === 422)) {
+                        const jsonNested = { person: { name: requestData.name, phone: requestData.phone }, note: requestData.note };
+                        console.log('Retrying as JSON({ person: { name, phone }, note })');
+                        response = await fetch('https://f9244004d8c8.ngrok-free.app/api/special-request', {
+                            method: 'POST',
+                            mode: 'cors',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                                'ngrok-skip-browser-warning': 'true'
+                            },
+                            body: JSON.stringify(jsonNested)
+                        });
+                    }
+
+                    // 7) Try URL-encoded person[name], person[phone]
+                    if (!response.ok && (response.status === 400 || response.status === 415 || response.status === 422)) {
+                        const formEncodedNested = new URLSearchParams();
+                        formEncodedNested.append('person[name]', requestData.name);
+                        formEncodedNested.append('person[phone]', requestData.phone);
+                        formEncodedNested.append('note', requestData.note);
+                        console.log('Retrying as x-www-form-urlencoded(person[name], person[phone])', formEncodedNested.toString());
+                        response = await fetch('https://f9244004d8c8.ngrok-free.app/api/special-request', {
+                            method: 'POST',
+                            mode: 'cors',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                'ngrok-skip-browser-warning': 'true'
+                            },
+                            body: formEncodedNested.toString()
+                        });
+                    }
+
+                    if (!response.ok) {
+                        console.error('Special-request failed. Payload snapshot:', apiPayload);
+                        // Try to read error message from server (json or text)
+                        let errorMsg = `Request failed with status ${response.status}`;
+                        try {
+                            const ct = response.headers.get('content-type') || '';
+                            if (ct.includes('application/json')) {
+                                const errJson = await response.json();
+                                if (errJson) {
+                                    // Laravel-style validation errors { message: '...', errors: { field: ['msg'] } }
+                                    if (errJson.errors) {
+                                        const detailMsgs = Object.values(errJson.errors).flat().join(' \n');
+                                        errorMsg = detailMsgs || errJson.message || 'Validation failed';
+                                    } else if (errJson.message || errJson.error) {
+                                        errorMsg = errJson.message || errJson.error;
+                                    } else {
+                                        errorMsg = JSON.stringify(errJson);
+                                    }
+                                }
+                            } else {
+                                const errText = await response.text();
+                                if (errText) errorMsg = errText;
+                            }
+                        } catch (_) {}
+                        throw new Error(errorMsg);
+                    }
+
+                    // Optional: read success payload
+                    // Try to read success payload for debugging
+                    try {
+                        const ct = response.headers.get('content-type') || '';
+                        if (ct.includes('application/json')) {
+                            const data = await response.json();
+                            console.log('Special request success payload:', data);
+                        } else {
+                            const text = await response.text();
+                            console.log('Special request success text:', text);
+                        }
+                    } catch (_) {}
+
+                    const feedback = document.getElementById('requestFeedback');
+                    if (feedback) {
+                        feedback.style.display = 'block';
+                        feedback.classList.remove('error');
+                        feedback.classList.add('success');
+                        feedback.textContent = 'Thank you! Your request was sent successfully. We will contact you soon.';
+                    }
+                    this.reset();
+                } catch (err) {
+                    console.error('Failed to send special request:', err);
+                    const feedback = document.getElementById('requestFeedback');
+                    if (feedback) {
+                        feedback.style.display = 'block';
+                        feedback.classList.remove('success');
+                        feedback.classList.add('error');
+                        feedback.textContent = 'Sorry, we could not send your request. Details: ' + (err && err.message ? err.message : 'Unknown error');
+                    }
+                } finally {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalBtnText || 'Send Request';
+                    }
+                }
             });
         }
     });

@@ -97,28 +97,14 @@
                         <input type="text" id="requestName" name="name" required>
                     </div>
                     <div class="form-group">
-                        <label for="requestEmail">Email Address</label>
-                        <input type="email" id="requestEmail" name="email" required>
-                    </div>
-                    <div class="form-group">
                         <label for="requestPhone">Phone Number</label>
-                        <input type="tel" id="requestPhone" name="phone">
+                        <input type="tel" id="requestPhone" name="phone" required>
                     </div>
                     <div class="form-group">
-                        <label for="requestType">Request Type</label>
-                        <select id="requestType" name="type" required>
-                            <option value="">Select request type</option>
-                            <option value="custom-fabric">Custom Fabric</option>
-                            <option value="bulk-order">Bulk Order</option>
-                            <option value="color-matching">Color Matching</option>
-                            <option value="sample-request">Sample Request</option>
-                            <option value="other">Other</option>
-                        </select>
+                        <label for="requestNote">Note</label>
+                        <textarea id="requestNote" name="note" rows="4" placeholder="Tell us what you need..." required></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="requestMessage">Message</label>
-                        <textarea id="requestMessage" name="message" rows="4" placeholder="Please describe your requirements..." required></textarea>
-                    </div>
+                    <div id="requestFeedback" class="form-feedback" aria-live="polite" style="display:none;"></div>
                     <button type="submit" class="submit-btn">Send Request</button>
                 </form>
             </div>

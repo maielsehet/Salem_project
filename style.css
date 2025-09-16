@@ -940,6 +940,24 @@ h1, h2, h3, h4 {
 }  
 }
 
+/* Inline form feedback */
+.form-feedback {
+    margin: 0.75rem 0 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+.form-feedback.success {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+.form-feedback.error {
+    background: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
 /* Search Modal Styles */
 .search-modal {
     background-color: rgba(0, 0, 0, 0.9);
