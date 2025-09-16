@@ -29,7 +29,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchIcon = document.querySelector('.search-icon');
     if (searchIcon) {
         searchIcon.addEventListener('click', function() {
-            alert('Search modal would open here');
+            openSearchModal();
+        });
+    }
+    
+    // Search input event listener
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        let searchTimeout;
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                const query = this.value.trim();
+                if (query.length > 0) {
+                    performSearch(query);
+                } else {
+                    showSearchSuggestions();
+                }
+            }, 300); // Debounce search
+        });
+        
+        // Handle Enter key
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const query = this.value.trim();
+                if (query.length > 0) {
+                    performSearch(query);
+                }
+            }
         });
     }
     
@@ -687,11 +715,216 @@ document.addEventListener('DOMContentLoaded', function() {
                  
                  // Show success message
                  alert('Thank you for your request! We will contact you soon.');
-                 
-                 // Reset form and close modal
-                 this.reset();
-                 closeRequestModal();
-             });
-         }
-     });
- 
+                
+                // Reset form and close modal
+                this.reset();
+                closeRequestModal();
+            });
+        }
+    });
+
+// SEARCH FUNCTIONALITY
+
+// Global search state
+let isSearching = false;
+
+// Open search modal
+function openSearchModal() {
+    const searchModal = document.getElementById('searchModal');
+    const searchInput = document.getElementById('searchInput');
+    if (searchModal && searchInput) {
+        searchModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => searchInput.focus(), 200);
+        showSearchSuggestions();
+    }
+}
+
+// Close search modal
+function closeSearchModal() {
+    const searchModal = document.getElementById('searchModal');
+    const searchInput = document.getElementById('searchInput');
+    if (searchModal) {
+        searchModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    if (searchInput) {
+        searchInput.value = '';
+    }
+}
+
+// Show default suggestions
+function showSearchSuggestions() {
+    const container = document.getElementById('searchResults');
+    if (!container) return;
+    container.innerHTML = `
+        <div class="search-suggestions">
+            <h4>Popular Searches</h4>
+            <div class="suggestion-tags">
+                <span class="suggestion-tag" onclick="performSearch('silk')">Silk</span>
+                <span class="suggestion-tag" onclick="performSearch('cotton')">Cotton</span>
+                <span class="suggestion-tag" onclick="performSearch('wool')">Wool</span>
+                <span class="suggestion-tag" onclick="performSearch('linen')">Linen</span>
+                <span class="suggestion-tag" onclick="performSearch('velvet')">Velvet</span>
+                <span class="suggestion-tag" onclick="performSearch('chiffon')">Chiffon</span>
+            </div>
+        </div>
+    `;
+}
+
+// Perform search across products and offers
+async function performSearch(query) {
+    const resultsContainer = document.getElementById('searchResults');
+    if (!resultsContainer || !query) return;
+
+    if (isSearching) return;
+    isSearching = true;
+
+    resultsContainer.innerHTML = `
+        <div class="search-loading">
+            <div class="search-spinner"></div>
+            <span>Searching for "${query}"...</span>
+        </div>
+    `;
+
+    try {
+        // Ensure products are loaded
+        let products = allProducts;
+        if (!products || products.length === 0) {
+            products = await fetchProducts();
+            allProducts = products;
+        }
+
+        // Ensure offers are loaded
+        let offers = allOffers;
+        if (!offers || offers.length === 0) {
+            offers = await fetchOffers();
+            allOffers = offers;
+        }
+
+        const items = [...products, ...offers];
+        const filtered = filterItems(items, query);
+        displaySearchResults(filtered, query);
+    } catch (err) {
+        console.error('Search error:', err);
+        resultsContainer.innerHTML = `
+            <div class="no-results">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Search Error</h3>
+                <p>Unable to perform search. Please try again.</p>
+            </div>
+        `;
+    } finally {
+        isSearching = false;
+    }
+}
+
+// Filter items by query
+function filterItems(items, query) {
+    const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+    return items.filter(item => {
+        const haystack = [
+            item.name || '',
+            item.type || '',
+            item.description || '',
+            item.branch || '',
+            ...(Array.isArray(item.colors) ? item.colors : [])
+        ].join(' ').toLowerCase();
+        return terms.every(t => haystack.includes(t));
+    });
+}
+
+// Render results grid
+function displaySearchResults(results, query) {
+    const container = document.getElementById('searchResults');
+    if (!container) return;
+
+    if (!results || results.length === 0) {
+        container.innerHTML = `
+            <div class="no-results">
+                <i class="fas fa-search"></i>
+                <h3>No Results Found</h3>
+                <p>No products found for "${query}". Try different keywords.</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="search-results-header">
+            <h4 style="color: var(--white); text-align: center; margin-bottom: 1.5rem; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem;">
+                Found ${results.length} result${results.length !== 1 ? 's' : ''} for "${query}"
+            </h4>
+        </div>
+        <div class="search-results-grid">
+            ${results.map(item => `
+                <div class="search-result-card">
+                    <img src="${item.images && item.images[0] ? item.images[0] : ''}" alt="${item.name}" class="search-result-img">
+                    <div class="search-result-info">
+                        <h3 class="search-result-name">${item.name}</h3>
+                        <div class="search-result-price">${item.price_after || ''}</div>
+                        <button class="search-result-btn" onclick="viewSearchResult(${item.id})">View Details</button>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+// Open item from search
+function viewSearchResult(itemId) {
+    closeSearchModal();
+    const path = window.location.pathname;
+    const onOffers = path.includes('Offers.html');
+    const onProducts = path.includes('Products.html');
+
+    if (onOffers) {
+        // Ensure offers are loaded then open
+        if (allOffers && allOffers.length) {
+            openOfferDetails(parseInt(itemId));
+        } else {
+            // Navigate to offers with query param
+            window.location.href = `Offers.html?item=${itemId}`;
+        }
+    } else {
+        if (onProducts && allProducts && allProducts.length) {
+            openProductDetails(parseInt(itemId));
+        } else {
+            window.location.href = `Products.html?item=${itemId}`;
+        }
+    }
+}
+
+// On load, check URL for direct item open
+document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    const itemParam = params.get('item');
+    if (itemParam) {
+        const path = window.location.pathname;
+        setTimeout(() => {
+            if (path.includes('Offers.html')) {
+                openOfferDetails(parseInt(itemParam));
+            } else {
+                openProductDetails(parseInt(itemParam));
+            }
+        }, 800);
+    }
+});
+
+// Close search when clicking outside content
+window.addEventListener('click', function(e) {
+    const modal = document.getElementById('searchModal');
+    if (e.target === modal) {
+        closeSearchModal();
+    }
+});
+
+// Close with Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('searchModal');
+        if (modal && modal.style.display === 'block') {
+            closeSearchModal();
+        }
+    }
+});

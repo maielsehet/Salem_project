@@ -113,6 +113,34 @@
             </div>
         </div>
     </section>
+    <!-- Search Modal -->
+    <div id="searchModal" class="modal search-modal">
+        <div class="search-modal-content">
+            <div class="search-header">
+                <div class="search-input-container">
+                    <i class="fas fa-search search-input-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search for fabrics, colors, types..." autocomplete="off">
+                    <button class="search-close-btn" onclick="closeSearchModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="search-results" id="searchResults">
+                <div class="search-suggestions">
+                    <h4>Popular Searches</h4>
+                    <div class="suggestion-tags">
+                        <span class="suggestion-tag" onclick="performSearch('silk')">Silk</span>
+                        <span class="suggestion-tag" onclick="performSearch('cotton')">Cotton</span>
+                        <span class="suggestion-tag" onclick="performSearch('wool')">Wool</span>
+                        <span class="suggestion-tag" onclick="performSearch('linen')">Linen</span>
+                        <span class="suggestion-tag" onclick="performSearch('velvet')">Velvet</span>
+                        <span class="suggestion-tag" onclick="performSearch('chiffon')">Chiffon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
       <!-- Footer -->
       <footer class="simple-footer">
         <div class="container">
